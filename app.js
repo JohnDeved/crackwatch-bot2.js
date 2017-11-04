@@ -30,6 +30,21 @@ program.version('0.1.0')
 
 if (program.debug) { CONFIG.mode = 'debug' }
 
+const convertTime = d => {
+  d = Number(d)
+  var h = (d / 3600).toFixed(2)
+  var m = (d % 3600 / 60).toFixed(2)
+  var s = (d % 3600 % 60).toFixed(2)
+
+  if (h > 1) {
+    return h + ' hours'
+  } else if (m > 1) {
+    return m + ' minutes'
+  } else {
+    return s + ' seconds'
+  }
+}
+
 const redditText = release => {
   return `**Release Name**: ${release.title}\n\n` +
   `**Released by**: ${release.group}\n\n` +
@@ -65,7 +80,7 @@ const redditText = release => {
   (release.info13 ? `**Layer13**: ${release.info13.href}\n\n` : '') +
   (release.info13 ? `**srrDB**: https://www.srrdb.com/release/details/${release.title}\n\n` : '') +
   (release.imgur ? `**NFO**: ${release.imgur.link}` : '') + '\n\n&nbsp;\n\n' +
-  // (release.imgur ? `**Benchmark**: u/${release.post.author.name} posted this ${(release.benchmark / 60).toFixed(2)}min after pre release!\n\n` : '') +
+  (release.info13 ? `**Benchmark**: u/${release.post.author.name} posted this ${convertTime((Date.now() / 1000) - release.info13.pretime)} after pre release!\n\n` : '') +
   `^^Im ^^a ^^Robot ^^created ^^by ^^u/JustSpeedy ^^| ` +
   `^^[source](https://github.com/JohnDeved/crackwatch-bot2.js) ^^| ^^[old-source](https://github.com/JohnDeved/crackwatch-bot.js)`
 }
