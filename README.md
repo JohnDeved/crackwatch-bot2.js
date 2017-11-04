@@ -1,14 +1,11 @@
-#  Deprecated!
+#  Crackwatch Comment Bot
 
 #### --- Description ---
 
-bot that post pre releases as fast as possible on reddit
+bot that post comments on r/crackwatch releases
 with aditional info - like imgur links to the nfo file
 and links to trailer and steam
 
+#### --- Old Repo ---
 
-#### --- Update ---
-
-it has been decide that bots are nolonger allowed in the /r/crackwatch subreddit.
-
-_so long my friend_
+https://github.com/JohnDeved/crackwatch-bot.js

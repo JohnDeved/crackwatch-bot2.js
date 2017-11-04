@@ -66,8 +66,8 @@ const redditText = release => {
   (release.info13 ? `**srrDB**: https://www.srrdb.com/release/details/${release.title}\n\n` : '') +
   (release.imgur ? `**NFO**: ${release.imgur.link}` : `**NFO**: https://scnlog.eu/nfo?rls=${release.title}`) + '\n\n&nbsp;\n\n' +
   // (release.imgur ? `**Benchmark**: u/${release.post.author.name} posted this ${(release.benchmark / 60).toFixed(2)}min after pre release!\n\n` : '') +
-  `^^Im ^^a ^^Robot ^^created ^^by ^^u/JustSpeedy\n\n` +
-  `^^[source](https://github.com/JohnDeved/crackwatch-bot2.js) ^^| ^^[old source](https://github.com/JohnDeved/crackwatch-bot.js)`
+  `^^Im ^^a ^^Robot ^^created ^^by ^^u/JustSpeedy ^^| ` +
+  `^^[source](https://github.com/JohnDeved/crackwatch-bot2.js) ^^| ^^[old-source](https://github.com/JohnDeved/crackwatch-bot.js)`
 }
 
 const checkNfo = (release, count) => {
