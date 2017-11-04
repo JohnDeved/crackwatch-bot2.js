@@ -1,0 +1,28 @@
+{
+  "name": "crackwatch.js",
+  "version": "1.0.0",
+  "description": "webscraping bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app",
+    "debug": "node app -d",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "colors": "^1.1.2",
+    "commander": "^2.11.0",
+    "console-stamp": "^0.2.6",
+    "igdb-api-node": "^3.0.2",
+    "imgur-uploader": "^4.2.1",
+    "irc": "^0.5.2",
+    "legacy-encoding": "^3.0.0",
+    "request": "^2.83.0",
+    "snoostorm": "0.0.5",
+    "snoowrap": "^1.14.2",
+    "text2png": "^1.0.1",
+    "xml2js": "^0.4.19"
+  }
+}
