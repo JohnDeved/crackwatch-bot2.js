@@ -30,23 +30,27 @@ program.version('0.1.0')
 
 if (program.debug) { CONFIG.mode = 'debug' }
 
-const convertTime = d => {
-  d = Number(d)
-  var h = (d / 3600).toFixed(2)
-  var m = (d % 3600 / 60).toFixed(2)
-  var s = (d % 3600 % 60).toFixed(2)
+const convertTime = n => {
+  n = Number(n)
+  var d = (n / 86400).toFixed(2)
+  var h = (n / 3600).toFixed(2)
+  var m = (n % 3600 / 60).toFixed(2)
+  var s = (n % 3600 % 60).toFixed(2)
 
-  if (h > 1) {
-    return h + ' hours'
+  if (d > 1) {
+    return d + 'days'
+  } else if (h > 1) {
+    return h + 'hours'
   } else if (m > 1) {
-    return m + ' minutes'
+    return m + 'min'
   } else {
-    return s + ' seconds'
+    return s + 'sec'
   }
 }
 
 const redditText = release => {
-  return `**Release Name**: ${release.title}\n\n` +
+  return '#Release Info\n\n----\n\n' +
+  `**Release Name**: ${release.title}\n\n` +
   `**Released by**: ${release.group}\n\n` +
   ((() => {
     if (release.scrap13) {
@@ -55,7 +59,13 @@ const redditText = release => {
       return ''
     }
   })()) +
-  (release.os ? `**OS**: ${release.os}\n\n` : '') + '&nbsp;\n\n' +
+  (release.info13 ? `**Layer13**: ${release.info13.href}\n\n` : '') +
+  (release.info13 ? `**srrDB**: https://www.srrdb.com/release/details/${release.title}\n\n` : '') +
+  (release.imgur ? `**NFO**: ${release.imgur.link}\n\n` : '') +
+  '---\n\n' +
+  '&nbsp;\n\n' +
+  '#Game Info\n\n----\n\n' +
+  (release.os ? `**OS**: ${release.os}\n\n` : '') +
   ((() => {
     if (release.igdb) {
       return (release.igdb.url ? `**Game Name**: ${release.igdb.name}\n\n` : '') +
@@ -68,7 +78,7 @@ const redditText = release => {
           return ''
         }
       })()) +
-      (release.igdb.url ? `**IGDB**: ${release.igdb.url}\n\n` : '') + '&nbsp;\n\n'
+      (release.igdb.url ? `**IGDB**: ${release.igdb.url}\n\n` : '')
     } else {
       if (release.scrap13) {
         return (release.scrap13.storehref ? `**Buy**: ${release.scrap13.storehref}\n\n` : '')
@@ -77,11 +87,10 @@ const redditText = release => {
       }
     }
   })()) +
-  (release.info13 ? `**Layer13**: ${release.info13.href}\n\n` : '') +
-  (release.info13 ? `**srrDB**: https://www.srrdb.com/release/details/${release.title}\n\n` : '') +
-  (release.imgur ? `**NFO**: ${release.imgur.link}` : '') + '\n\n&nbsp;\n\n' +
-  (release.info13 ? `**Benchmark**: u/${release.post.author.name} posted this ${convertTime((Date.now() / 1000) - release.info13.pretime)} after pre!\n\n` : '') +
-  `^^Im ^^a ^^Robot ^^created ^^by ^^u/JustSpeedy ^^| ` +
+  '---\n\n' +
+  '&nbsp;\n\n' +
+  (release.info13 ? `**Benchmark**: u/${release.post.author.name} posted this ${convertTime((Date.now() / 1000) - release.info13.pretime)} after [pre](https://en.wikipedia.org/wiki/Warez_scene#Release_procedure)!\n\n` : '') +
+  `^^post ^^a ^^release ^^and ^^let ^^me ^^handle ^^the ^^rest ^^| ^^Im ^^a ^^Robot ^^created ^^by ^^u/JustSpeedy ^^| ` +
   `^^[source](https://github.com/JohnDeved/crackwatch-bot2.js) ^^| ^^[old-source](https://github.com/JohnDeved/crackwatch-bot.js)`
 }
 
