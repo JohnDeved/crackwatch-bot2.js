@@ -80,7 +80,7 @@ const redditText = release => {
   (release.info13 ? `**Layer13**: ${release.info13.href}\n\n` : '') +
   (release.info13 ? `**srrDB**: https://www.srrdb.com/release/details/${release.title}\n\n` : '') +
   (release.imgur ? `**NFO**: ${release.imgur.link}` : '') + '\n\n&nbsp;\n\n' +
-  (release.info13 ? `**Benchmark**: u/${release.post.author.name} posted this ${convertTime((Date.now() / 1000) - release.info13.pretime)} after pre release!\n\n` : '') +
+  (release.info13 ? `**Benchmark**: u/${release.post.author.name} posted this ${convertTime((Date.now() / 1000) - release.info13.pretime)} after pre!\n\n` : '') +
   `^^Im ^^a ^^Robot ^^created ^^by ^^u/JustSpeedy ^^| ` +
   `^^[source](https://github.com/JohnDeved/crackwatch-bot2.js) ^^| ^^[old-source](https://github.com/JohnDeved/crackwatch-bot.js)`
 }
