@@ -64,7 +64,7 @@ const redditText = release => {
   })()) +
   (release.info13 ? `**Layer13**: ${release.info13.href}\n\n` : '') +
   (release.info13 ? `**srrDB**: https://www.srrdb.com/release/details/${release.title}\n\n` : '') +
-  (release.imgur ? `**NFO**: ${release.imgur.link}` : `**NFO**: https://scnlog.eu/nfo?rls=${release.title}`) + '\n\n&nbsp;\n\n' +
+  (release.imgur ? `**NFO**: ${release.imgur.link}` : '') + '\n\n&nbsp;\n\n' +
   // (release.imgur ? `**Benchmark**: u/${release.post.author.name} posted this ${(release.benchmark / 60).toFixed(2)}min after pre release!\n\n` : '') +
   `^^Im ^^a ^^Robot ^^created ^^by ^^u/JustSpeedy ^^| ` +
   `^^[source](https://github.com/JohnDeved/crackwatch-bot2.js) ^^| ^^[old-source](https://github.com/JohnDeved/crackwatch-bot.js)`
@@ -157,7 +157,7 @@ const redditPost = release => {
 
 const imgurPost = (release, callback) => {
   if (release.nfo) {
-    imgurUploader(text2png(release.nfo + `\n\n\n\nnfo image rendered by\nJustSpeedy's aka JohnDev's crackwatch-bot`, CONFIG.text2png), {title: release.title}).then(data => {
+    imgurUploader(text2png(release.nfo + `\n\n\n\nnfo image rendered by\nu/JustSpeedy's crackwatch-bot`, CONFIG.text2png), {title: release.title}).then(data => {
       release.imgur = data
       console.info('Posted on Imgur'.green, release.imgur.link.grey)
       callback(release)
