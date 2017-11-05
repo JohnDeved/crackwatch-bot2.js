@@ -303,6 +303,7 @@ var submissionStream = rstorm.SubmissionStream({
 submissionStream.on('submission', function (post) {
   // console.log(post)
   console.log(`New submission by ${post.author.name}: ${post.title}`.grey)
+  if (/REPACK/i.test(post.title)) { return }
   if (!/(([\d\w\.\_]+)\b-\b([\d\w\.\_]+)\b)/.test(post.title)) { return }
   let [, title, name, group] = post.title.match(/(([\d\w\.\_]+)\b-\b([\d\w\.\_]+)\b)/)
 
