@@ -171,10 +171,12 @@ const redditPost = release => {
     // }
 
     if (!release.imgur) {
-      layer13.lookup(release.title, info13 => {
-        release.info13 = info13
-        checkNfo(release, 1)
-      })
+      setTimeout(() => {
+        layer13.lookup(release.title, info13 => {
+          release.info13 = info13
+          checkNfo(release, 1)
+        })
+      }, 15 * 1000)
     }
   })
 }
