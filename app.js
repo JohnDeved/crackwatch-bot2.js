@@ -27,6 +27,7 @@ program.version('0.1.0')
 .parse(process.argv)
 
 if (program.debug) { CONFIG.mode = 'debug' }
+r.config({continueAfterRatelimitError: true})
 
 const convertTime = n => {
   n = Number(n)
