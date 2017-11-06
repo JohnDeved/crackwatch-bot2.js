@@ -19,7 +19,9 @@ const SrrDb = class {
           if (err) { callback(); return console.error(err) }
           response && console.info('srrdb download statusCode:'.grey, response.statusCode, response.statusMessage.grey)
 
-          callback(legacy.decode(body, 'cp437'))
+          let text = legacy.decode(body, 'cp437')
+          text = text.replace(/\u0009/g, '')
+          callback(text)
         })
       })
     }
