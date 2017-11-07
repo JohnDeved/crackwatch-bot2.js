@@ -88,8 +88,8 @@ const redditText = release => {
   })()) +
   '---\n\n' +
   '&nbsp;\n\n' +
-  (release.info13 ? `**Benchmark**: u/${release.post.author.name} posted this ${convertTime(release.post.created_utc - release.info13.pretime)} after [pre](https://en.wikipedia.org/wiki/Warez_scene#Release_procedure)!\n\n` : '') +
-  `^^post ^^a ^^release ^^and ^^let ^^me ^^handle ^^the ^^rest ^^| ^^Im ^^a ^^Robot ^^created ^^by ^^u/JustSpeedy ^^| ` +
+  (release.info13 ? `**Benchmark**: u/${release.post.author.name} posted this ${convertTime(release.post.created_utc - release.info13.pretime)} after [pre](https://en.wikipedia.org/wiki/Warez_scene#Release_procedure)!\n\n` : '**Error**: there is no [pre](https://en.wikipedia.org/wiki/Warez_scene#Release_procedure) data available for this Release!\n\n') +
+  `^^Post ^^a ^^Release ^^and ^^let ^^me ^^handle ^^the ^^rest ^^| ^^Im ^^a ^^Robot ^^created ^^by ^^u/JustSpeedy ^^| ` +
   `^^[source](https://github.com/JohnDeved/crackwatch-bot2.js) ^^| ^^[old-source](https://github.com/JohnDeved/crackwatch-bot.js)`
 }
 
@@ -101,7 +101,7 @@ const checkNfo = (release, count) => {
         console.log('Updating Comment'.green, release.submission.id.grey)
         r.getComment(release.submission.id).edit(release.text)
       } else {
-        if (count < 30) {
+        if (count < 5) {
           console.log('No nfo found; retry in 60sec'.red, release.title.grey)
 
           let text
@@ -208,8 +208,10 @@ var submissionStream = rstorm.SubmissionStream({
   'results': 3
 })
 
-submissionStream.on('submission', function (post) {
-  console.log(`New submission by ${post.author.name}: ${post.title}`.grey)
+submissionStream.on('submission', post => {
+  console.log('-------------------------------------')
+  console.log(post)
+  console.log(`${post.author.name}: ${post.title}`.grey)
   if (/REPACK/i.test(post.title)) { return }
   if (/KaOs/i.test(post.title)) { return }
   if (/FitGirl/i.test(post.title)) { return }
