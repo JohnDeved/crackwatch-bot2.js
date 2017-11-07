@@ -7,6 +7,7 @@ const igdb = require('igdb-api-node').default
 const layer13 = require('./modules/layer13')
 const srrdb = require('./modules/srrdb')
 global.CONFIG = require('./config/cfg.json')
+CONFIG.checked = []
 
 require('console-stamp')(console, {
   pattern: 'dd/mm/yyyy HH:MM:ss.l',
@@ -212,6 +213,7 @@ submissionStream.on('submission', post => {
   console.log('-------------------------------------')
   console.log(post)
   console.log(`${post.author.name}: ${post.title}`.grey)
+  if (CONFIG.checked.indexOf(post.id) !== -1) { return } else { CONFIG.checked.push(post.id) }
   if (/REPACK/i.test(post.title)) { return }
   if (/KaOs/i.test(post.title)) { return }
   if (/FitGirl/i.test(post.title)) { return }
