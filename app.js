@@ -101,7 +101,7 @@ const checkNfo = (release, count) => {
         console.log('Updating Comment'.green, release.submission.id.grey)
         r.getComment(release.submission.id).edit(release.text)
       } else {
-        if (count < 5) {
+        if (count < 30) {
           console.log('No nfo found; retry in 60sec'.red, release.title.grey)
 
           let text
