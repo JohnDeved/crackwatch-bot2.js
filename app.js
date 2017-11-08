@@ -232,6 +232,11 @@ submissionStream.on('submission', post => {
       group: group.toUpperCase()
     }
 
-    finalize(release)
+    layer13.lookup(release.title, info13 => {
+      if (info13) {
+        release.info13 = info13
+        finalize(release)
+      }
+    })
   })
 })
