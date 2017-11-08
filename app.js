@@ -7,7 +7,6 @@ const igdb = require('igdb-api-node').default
 const layer13 = require('./modules/layer13')
 const srrdb = require('./modules/srrdb')
 global.CONFIG = require('./config/cfg.json')
-CONFIG.checked = []
 
 require('console-stamp')(console, {
   pattern: 'dd/mm/yyyy HH:MM:ss.l',
@@ -206,28 +205,33 @@ console.log('Mode:', CONFIG.mode.green, 'Subreddit:', CONFIG.subreddit[CONFIG.mo
 
 var submissionStream = rstorm.SubmissionStream({
   'subreddit': CONFIG.subreddit[CONFIG.mode],
-  'results': 3
+  'results': 3,
+  'pollTime': 2000
 })
 
 submissionStream.on('submission', post => {
   console.log('-------------------------------------')
   console.log(post)
   console.log(`${post.author.name}: ${post.title}`.grey)
-  if (CONFIG.checked.indexOf(post.id) !== -1) { return } else { CONFIG.checked.push(post.id) }
-  if (/REPACK/i.test(post.title)) { return }
-  if (/KaOs/i.test(post.title)) { return }
-  if (/FitGirl/i.test(post.title)) { return }
-  if (/TWOELV/i.test(post.title)) { return }
-  if (/CorePack/i.test(post.title)) { return }
-  if (!/(([\d\w._':]+)\b-\b([\d\w._':]+)\b)/.test(post.title)) { return }
-  let [, title, name, group] = post.title.match(/(([\d\w._':]+)\b-\b([\d\w._':]+)\b)/)
+  r.getSubmission(post.id).comments.then(comments => {
+    let botComments = comments.filter(val => val.author.user === CONFIG.snoowrap['0'].username)
 
-  let release = {
-    title: title,
-    name: name,
-    post: post,
-    group: group.toUpperCase()
-  }
+    if (botComments.length !== 0) { return console.log('bot allready posted here!'.red) }
+    if (/REPACK/i.test(post.title)) { return }
+    if (/KaOs/i.test(post.title)) { return }
+    if (/FitGirl/i.test(post.title)) { return }
+    if (/TWOELV/i.test(post.title)) { return }
+    if (/CorePack/i.test(post.title)) { return }
+    if (!/(([\d\w._':]+)\b-\b([\d\w._':]+)\b)/.test(post.title)) { return }
+    let [, title, name, group] = post.title.match(/(([\d\w._':]+)\b-\b([\d\w._':]+)\b)/)
 
-  finalize(release)
+    let release = {
+      title: title,
+      name: name,
+      post: post,
+      group: group.toUpperCase()
+    }
+
+    finalize(release)
+  })
 })
