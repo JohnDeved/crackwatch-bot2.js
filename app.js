@@ -34,7 +34,7 @@ const convertTime = n => {
   var d = (n / 86400).toFixed(2)
   var h = (n / 3600).toFixed(2)
   var m = (n % 3600 / 60).toFixed(2)
-  var s = (n % 3600 % 60).toFixed(2)
+  var s = (n % 3600 % 60)
 
   if (d > 1) {
     return d + 'days'
