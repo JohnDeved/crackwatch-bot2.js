@@ -210,33 +210,32 @@ var submissionStream = rstorm.SubmissionStream({
 })
 
 submissionStream.on('submission', post => {
-  console.log('-------------------------------------')
-  console.log(post)
+  // console.log('-------------------------------------')
+  // console.log(post)
   console.log(`${post.author.name}: ${post.title}`.grey)
-  r.getSubmission(post.id).comments.then(comments => {
-    let botComments = comments.filter(val => val.author.user === CONFIG.snoowrap['0'].username)
 
-    if (botComments.length !== 0) { return console.log('bot allready posted here!'.red) }
-    if (/REPACK/i.test(post.title)) { return }
-    if (/KaOs/i.test(post.title)) { return }
-    if (/FitGirl/i.test(post.title)) { return }
-    if (/TWOELV/i.test(post.title)) { return }
-    if (/CorePack/i.test(post.title)) { return }
-    if (!/(([\d\w._':]+)\b-\b([\d\w._':]+)\b)/.test(post.title)) { return }
-    let [, title, name, group] = post.title.match(/(([\d\w._':]+)\b-\b([\d\w._':]+)\b)/)
+  if (post.num_comments !== 0) { return }
+  if (/REPACK/i.test(post.title)) { return }
+  if (/KaOs/i.test(post.title)) { return }
+  if (/FitGirl/i.test(post.title)) { return }
+  if (/TWOELV/i.test(post.title)) { return }
+  if (/CorePack/i.test(post.title)) { return }
+  if (!/(([\d\w._':]+)\b-\b([\d\w._':]+)\b)/.test(post.title)) { return }
+  console.log(`${post.author.name}: ${post.title}`.grey, ' => match'.green)
 
-    let release = {
-      title: title,
-      name: name,
-      post: post,
-      group: group.toUpperCase()
+  let [, title, name, group] = post.title.match(/(([\d\w._':]+)\b-\b([\d\w._':]+)\b)/)
+
+  let release = {
+    title: title,
+    name: name,
+    post: post,
+    group: group.toUpperCase()
+  }
+
+  layer13.lookup(release.title, info13 => {
+    if (info13) {
+      release.info13 = info13
+      finalize(release)
     }
-
-    layer13.lookup(release.title, info13 => {
-      if (info13) {
-        release.info13 = info13
-        finalize(release)
-      }
-    })
   })
 })
