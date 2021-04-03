@@ -14,7 +14,7 @@
     "cheerio": "^1.0.0-rc.2",
     "colors": "^1.1.2",
     "commander": "^2.11.0",
-    "console-stamp": "^0.2.6",
+    "console-stamp": "^3.0.0",
     "igdb-api-node": "^3.0.2",
     "imgur-uploader": "^4.2.1",
     "legacy-encoding": "^3.0.0",
